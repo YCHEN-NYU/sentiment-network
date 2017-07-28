@@ -1,6 +1,9 @@
 import sys
 import timeit
 from collections import Counter
+import numpy as np
+import matplotlib.pyplot as plt
+
 def load_file(filename, rw_mode):
     try:
         file = open(filename, rw_mode)
@@ -42,3 +45,11 @@ for block in pos2neg_ratio.most_common()[:10]:
 print('-'*40 + '\nNEGATIVE:\n' + '-'*40)
 for block in pos2neg_ratio.most_common()[-COMMON_LEN:]:
     print('{0:15s} | {1: 3.2f}'.format(block[0], block[1]))
+
+ratio_dist = list(pos2neg_ratio.values())
+# print(ratio_dist)
+plt.hist(ratio_dist, 100)
+plt.xlabel('pos/neg ratio')
+plt.ylabel('probability')
+plt.title('P(pos/neg)')
+plt.show()
