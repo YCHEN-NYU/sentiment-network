@@ -59,6 +59,10 @@ def plot_hist(pos2neg_ratio, BINS=100):
     plt.title('histgram of [pos/neg]')
     plt.show()
 
+# create INPUT/OUTPUT data
+def createIO():
+    # TODO
+    pass
 # read out reviews and corresponding
 reviews = file_loader('reviews.txt', 'r')
 labels = file_loader('labels.txt', 'r')
