@@ -30,9 +30,13 @@ def freq_counter(labels, reviews):
                 neg_counts[word] += 1
     return pos_counts, neg_counts
 
+# return full_words_set
+def create_full_words_set(pos_counts, neg_counts):
+    output_set = set(pos_counts.keys()).union(neg_counts.keys())
+    return output_set, len(output_set)
+
 # calculate pos/neg ratios
-def pos2neg_ratio(pos_counts, neg_counts, count_threshold=100):
-    all_words = set(pos_counts.keys()).union(neg_counts.keys())
+def pos2neg_ratio(pos_counts, neg_counts, all_words, count_threshold=100):
     pos2neg_ratio = Counter()
     for word in all_words:
         if((pos_counts[word] > count_threshold) and (neg_counts[word] >count_threshold)):
@@ -59,15 +63,39 @@ def plot_hist(pos2neg_ratio, BINS=100):
     plt.title('histgram of [pos/neg]')
     plt.show()
 
-# create INPUT/OUTPUT data
-def createIO():
+def word_to_index(all_words, number_of_words):
+    word_index = {}
+    for word, i in enumerate(all_words):
+        word_index[word] = i
+    return word_index
+# TODO: Complete the implementation of update_input_layer. It should count how many times each word is used in the given review, and then store those counts at the appropriate indices inside layer_0.
+def update_input_layer():
     # TODO
     pass
-# read out reviews and corresponding
+    # global layer_0
+    
+    # # clear out previous state, reset the layer to be all 0s
+    # layer_0 *= 0
+    
+    # # count how many times each word is used in the given review and store the results in layer_0 
+    # for word in review.split(" "):
+    #     layer_0[0][word2index[word]] += 1
+
+
+
+def run():
+    # define a run function
+    # TODO
+    pass
+
+# load files with specific read/write modes
 reviews = file_loader('reviews.txt', 'r')
 labels = file_loader('labels.txt', 'r')
-
 pos_counts, neg_counts = freq_counter(labels, reviews)
-pos2neg_ratio = pos2neg_ratio(pos_counts, neg_counts, count_threshold=100)
-plot_hist(pos2neg_ratio, 20)
+all_words, number_of_words = create_full_words_set(pos_counts, neg_counts)
+pos2neg_ratio = pos2neg_ratio(pos_counts, neg_counts, all_words, count_threshold=100)
+word_index = word_to_index(all_words, number_of_words)
+print(word_index)
+
+
 
